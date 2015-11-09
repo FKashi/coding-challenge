@@ -21,7 +21,9 @@ def main():
                         cleaned += 1
                     output = text_escape + " (timestamp: " + data.get("created_at") + ")\n"
                     outfile.write(output)
+                    infile.closed
         outfile.write("\n" + str(cleaned) + " tweets contained unicode.\n")
+    outfile.closed
 
 if __name__ == "__main__":
     main()
