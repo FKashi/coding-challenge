@@ -4,11 +4,11 @@ import os
 from collections import deque
 from datetime import datetime
 
-control = "".join([chr(char) for char in range(0, 31)])  # Removing 0x0000-0x0015
-escapes = "".maketrans({"\n": " ", "\t": " "})  # Translation table for escape characters
+controls = str.maketrans({key: '' for key in [chr(char) for char in range(0, 31)]})  # Removing 0x0000-0x0015
+escapes = str.maketrans({"\n": " ", "\t": " "})  # Translation table for escape characters
 
 class THG:
-    """Class implementing Twitter hashtagh graph"""
+    """Class implementing Twitter hashtag graph"""
     infilename = os.path.join("tweet_input", "tweets.txt")
     outfilename = os.path.join("tweet_output", "ft2.txt")
 
@@ -105,7 +105,8 @@ class THG:
 def clean_hashtag(hashtag):
     """This function cleans hashtags from unwanted unicode characters"""
     hashtag_unicode = hashtag.encode('ascii','ignore').decode('UTF-8')
-    hashtag_escape = hashtag_unicode.translate(escapes)
+    hashtag_control = hashtag_unicode.translate(controls)
+    hashtag_escape = hashtag_control.translate(escapes)
     return hashtag_escape
 
 def tweettime(created_at):
